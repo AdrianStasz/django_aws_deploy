@@ -1,0 +1,75 @@
+{% extends 'matchmaking/main.html'%}
+
+{% block content %}
+
+<table style="height:250px; border-top:1px solid #7D1C33;">
+    <tr style="border-bottom:1px solid #7D1C33;">
+        <th style="width: 25%;"></th>
+        <th id="player_name">
+            <center>Zgłoszenia</center>
+        </th>
+        <th style="width: 25%">
+            <div id="organize_match_button" style="margin: 3%; float:right; text-align: bottom;"><a style="color: #7D1C33;" href="{% url 'home' %}">Powrót</a></div>
+        
+        </th>
+    </tr>
+    {% if tickets_exists %}
+        {% for ticket in all_tickets %}
+                
+                <tr>
+                    <td colspan="3" style="height: 100%; width: 100%;" >
+                        <div id="client_td2" style="height: 70%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="padding: 2%; width: 20%;"> <a id="matches_text" style="color:#7D1C33;" href="{% url 'player' ticket.player_id.id %}">{{ticket.player_id.name}}</a></td>
+                                    <td style="padding: 2%; text-align: left;"><span id="matches_text">Data: {{ticket.date_created|date:'d-m-Y H:i'}}</span></td>
+                                    <td></td>
+                                </tr>
+                                <tr style="vertical-align: top; ">
+                                    <td colspan=2 style="padding: 2%;width: 50%;"><span id="matches_text">Tytuł: <a id="matches_text" href="">{{ticket.title}}</a></span></td>   
+                                    <td style="padding-top: 2%; padding-right: 3%;">
+                                       
+                                        <a id="matches_button1" style="float: right; margin: 2%; width: 50%; margin-bottom: 0%;" href="{% url 'ticket' ticket.id%}">Przejdź do zgłoszenia</a>        
+                                
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+        {% endfor %}   
+    {% else %}
+        <tr>
+            <td style="height: 100%; width: 25%;" >
+            </td>
+            <td style="height: 100%; padding-top: 1%;" >
+                <div id="client_td">
+                    <table style="width: 100%;">                    
+                        <tr>
+                            <td colspan="2" style="padding-left:2%; padding-top: 6%;"><center>Nie ma utworzonych żadnych zgłoszeń</center></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 3%; padding-left: 2%; width: 50%;">
+                                <div id="edit_button" style="float: right;  width: 70%">
+                                    <a style="color:#FFFFFF" id="button_text" href="{% url 'home' %}">Powrót</a>
+                                </div>
+                            </td>
+                            <td style="padding-top: 3%;">
+                                <div id="edit_button" style="float: right; width: 80%; ">
+                                    <a style="color:#FFFFFF" id="button_text" href="{% url 'tickets' %}">Odświerz</a>
+                                </div>      
+                            </td>
+                            
+                        </tr>             
+                    </table>
+                </div>
+            </td>
+            <td style="height: 100%; width: 25%;" >
+            </td>     
+        </tr>
+        
+    {% endif %}
+    <tr style="border-bottom:1px solid #7D1C33; height: 50px;">
+    </tr>
+</table>
+{% endblock %}

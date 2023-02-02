@@ -1,0 +1,138 @@
+{% load static %}
+<style>
+  #navbar{
+    margin-left: 10%;
+
+  }
+  #navbar_div{ 
+    float: right;
+    width: 15%;
+    text-align: center;
+    margin: 1%;
+  }
+  .login{
+    background: linear-gradient(180deg, #7D1C33 0%, #570015 100%);
+
+    /* Cień burgund */
+    box-shadow: 0px 9px 15px #FFDFE7, 9px 0px 15px #FFDFE7;
+    border-radius: 8px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    padding: 10px;
+  }
+  .logout{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 100%;
+    color: #202020;
+  }
+  .welcome{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 100%;
+    color: #000000;
+  }
+  .register{
+    background: linear-gradient(#FFFFFF, #FFFFFF) padding-box,
+              linear-gradient(to right, #043C35, #06695D) border-box;
+    border-radius: 8px;
+    border: 1px solid transparent;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 100%;
+    color: #000000;
+    padding: 10px;
+    }
+  /* Style The Dropdown Button */
+.dropbtn {
+  background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 100%;
+  color: #000000;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.center {
+  margin-bottom: 5px;
+}
+
+</style>
+
+<nav class="navbar navbar-expand-lg" id="navbar">
+  <img src="{% static 'images/logo2.jpg' %}" height="200px">
+    <div class="collapse navbar-collapse" id="navbarNav">
+    <div style="width:25%"></div>
+    {% if request.user.is_authenticated %}
+      <div id="navbar_div"></div>
+      <div class="login" id="navbar_div"><a style="color:white;" href="{% url 'logout' %}">Wyloguj</a></div>
+      <div class="welcome" id="navbar_div"><img src="{% static 'images/welcome.png' %}"/> Witaj, {{request.user}}</div>
+    {% else %}
+      <div class="register" id="navbar_div"><a href="{% url 'register' %}">Załóż konto</a></div>
+      <div class="login" id="navbar_div"><a style="color:white" href="{% url 'login' %}">Zaloguj</a></div>
+      <div class="welcome" id="navbar_div"><img src="{% static 'images/welcome.png' %}"/> Witaj, gość</div>
+    {% endif %}
+    <div class="dropdown" id="navbar_div" style="width:10%;">
+      <img src="{% static 'images/menu1.png' %}" class="center"/><button class="dropbtn" style="padding-bottom: 3%;">Menu</button>
+      <div class="dropdown-content">
+        <a href="{% url 'history' %}">Historia meczy</a>
+        {% if request.user.player.superuser %}
+          <a href="{% url 'add_permissions' %}">Uprawnienia</a>
+          <a href="{% url 'tickets' %}">Wnioski</a>
+          <a href="{% url 'registration_token_change' %}">Kod dostępu</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </nav>

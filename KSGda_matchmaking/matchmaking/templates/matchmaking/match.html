@@ -1,0 +1,185 @@
+{% extends 'matchmaking/main.html'%}
+{% load static %}
+
+{% block content %}
+
+<table style="height:500px; border-top:1px solid #7D1C33;">
+    <tr style="border-bottom:1px solid #7D1C33;">
+        <th></th>
+        <th id="player_name">
+                <div style="padding-bottom: 5%; padding-top: 3%; " align="center">{{match.name}}</div>
+        </th>
+    </tr>
+
+    {% if match_datetime_check %}    
+        <tr>
+            <td colspan="3" id="player_name">          
+                    <div style="padding-bottom: 2%; padding-top: 3%;" align="center">Wynik {{match.match_result}}</div>         
+            </td>
+      
+        </tr>
+            {% if match_mvp is not none %}
+            <tr>
+                <td colspan="3" id="player_name" style="border:0px;" align="center"><h4>Gracz meczu: <b>{{match_mvp.player_id}}</b></h4></td>
+            </tr>
+            {% endif %}        
+    {% endif %}
+
+    <tr>
+        <td style="padding: 2%;">
+            <a id="matches_text" style="color:#7D1C33;" href="{% url 'match' match.id%}">{{match.name}}</a>
+        </td>
+        <td colspan="2" style="padding: 2%;">
+            Organizator: <a href="{% url 'promoter' match.promoter.id %}">{{match.promoter}}</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="height: 100%; width: 25%;" >
+            <div id="client_td">
+                <table style="width: 100%;">
+                    <tr>
+                        <th id="client_th"><center>Zapisani</center></th>
+                    </tr>
+                    {% if match.reserved_slots > 0 %}
+                            
+                    <tr>
+                        <td style="padding: 3%;"><span id="matches_text">Zarezerwowane miejsca: {{match.reserved_slots}}</span></td>
+                    </tr>   
+                
+                    {% endif %}
+
+                    {% for player in players%}
+                    
+                        <tr>
+                            <td style="padding: 3%;">
+                                <a id="matches_text" href="{% url 'player' player.id %}">{{player}}</a>
+                                {% if player.yellow_cards == 1%}
+                                    <img src="{% static 'images/yellow.png' %}" style="width: 15px; margin-left: 5px;">
+                                {% endif %}
+                            </td>
+                        </tr>
+                                                                          
+                    {% endfor %}
+
+                </table>
+            </div>
+        </td>
+        <td style="height: 100%; width: 25%;" >
+            <div id="client_td">
+                <table style="width: 100%;">
+                    <tr>
+                        <th id="client_th"><center>Rezerwowi</center></th>
+                        
+                    </tr>
+                    
+                    {% for player in reserve %}
+                                
+                            <tr>
+                                <td style="padding: 3%;"><a id="matches_text" href="{% url 'player' player.player_id.id %}">{{player.player_id}}</a></td>
+                            </tr>
+                                                
+                    {% endfor %}
+            
+                </table>
+            </div>
+        </td>
+        <td style="height: 100%; width: 25%;" >
+            <div id="client_td">
+                <table style="width: 100%;">
+                    <tr>
+                        <th colspan=2 id="client_th"><center>Informacje</center></th>
+                        
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; padding: 3%;">Data:</td><td style="padding: 3%;"><span id="matches_text">{{match.match_date|date:'d-m-Y'}}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; padding: 3%;">Godzina:</td><td style="padding: 3%;"><span id="matches_text">{{match.match_time|time:'H:i'}}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; padding: 3%;">Ilość miejsc:</td><td style="padding: 3%;"><span id="matches_text">{{free_slots}}/{{match.slots}}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; padding: 3%;">Lokalizacja:</td><td style="padding: 3%;"><span id="matches_text">{{match.localization}}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; padding: 3%;">Koszt:</td><td style="padding: 3%;"><span id="matches_text">{{match.match_cost}} zł</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 50%; padding: 3%;">Poziom:</td><td style="padding: 3%;"><span id="matches_text">{{match.skill_level}}</span></td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </td>     
+    </tr>
+
+    {% if match_datetime_check %}
+        {% if user in players%}
+            {% if not player_rate_result %}
+            <tr style="border-bottom:1px solid #7D1C33;">
+                <td style="vertical-align: top; padding-top: 2%; padding-right: 3%; padding-bottom: 2%">
+                    <div>
+                        <a id="matches_button2" style="float: left; margin: 2%; width: 45%; font-size: 15px; margin-left: 12%;" href="{% url 'rate_players' match.id%}">Wybierz zawodnika meczu</a>
+                    </div>
+                </td>
+                <td style="padding-top: 2%; padding-right: 3%; vertical-align: top; height: 80px;">
+                </td>
+                <td style="padding-top: 2%; padding-right: 3%; vertical-align: top; height: 80px;">
+                </td>
+            </tr>
+            {% endif %}
+        {% endif %}
+    {% endif %}       
+   
+    {% if not match_datetime_check %}
+        <tr style="border-bottom:1px solid #7D1C33;">
+            <td style="padding-top: 2%; padding-right: 3%; vertical-align: top; height: 80px;">
+            </td>
+            <td style="padding-top: 2%; padding-right: 3%; vertical-align: top; height: 80px;">
+            </td>
+            <td style="padding-right: 3%; padding-top: 2%; padding-bottom: 2%; vertical-align: top;">
+                <div >
+                    {% if user in players %}
+                    <a id="matches_button1" style="float: right; margin: 2%; width: 40%; font-size: 15px;" href="{% url 'leave_match' match.id%}">Opuść wydarzenie</a>
+                    {% else%}
+                    <a id="matches_button1" style="float: right; margin: 2%; width: 40%; font-size: 15px;" href="{% url 'join_match' match.id%}">Zapisz się</a>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endif %} 
+    <tr >
+        <td colspan="3" style="padding-top: 2%; padding-left: 2%; padding-bottom: 2%;">
+            <span id="comments_top"><strong>Komentarze ({{match.comments.all.count}})</strong></span></br>
+            {% if not match.comments.all %}
+                <a id="comments_top" href="{% url 'add_comment' match.id %}">
+                    <span id="comments_bold">Dodaj komentarz</span>
+                </a>
+            {% else%}
+            <a id="comments_top" href="{% url 'add_comment' match.id %}">
+                <span id="comments_bold">Dodaj komentarz</span>
+            </a>
+        </br></br>
+                {% for comment in match.comments.all %}
+                <span id="comments_bold">
+                    <strong>
+                        {{comment.user}}, {{comment.date_created|date:'d-m-Y H:i'}}
+                    </strong>
+                </span>
+                    </br>
+                    <span id="comments_text">
+                        {{comment.body}}
+                    </span>
+                    
+                </br></br>
+                {% endfor %}
+            {% endif %}
+        </td>
+    </tr>  
+    <tr style="border-bottom:1px solid #7D1C33;">
+
+    </tr>       
+</table>
+{% endblock %}

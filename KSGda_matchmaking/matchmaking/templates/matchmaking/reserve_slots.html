@@ -1,0 +1,57 @@
+{% extends 'matchmaking/main.html'%}
+
+{% block content %}
+
+<table style="height:300px; border-top:1px solid #7D1C33;">
+    <tr style="border-bottom:1px solid #7D1C33;">
+        <th style="width: 25%;"></th>
+        <th id="player_name" style="width: 40%">
+            <center>Rezerwacja miejsc</center>
+        </th>
+        <th style="width: 25%">
+            <div id="organize_match_button" style="margin: 3%; float:right; text-align: bottom;width: 50%"><a style="color: #7D1C33;" href="{% url 'home' %}">Powrót</a></div>
+        </th>
+    </tr>
+    <tr>
+        <td style="height: 100%; width: 25%;" >
+        </td>
+        <td style="height: 100%; padding-top: 1%;" >
+            <div id="client_td">
+                <table style="width: 100%;">
+                    <tr>
+                        <th colspan=2 id="client_th"><center>Ilość zarezerwowanych miejsc</center></th>
+                       
+                    </tr>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {% for formset in form %}
+                        <tr>
+                        <td style="padding-left:2%; padding-top: 1%;"><center>{{formset.label}}</center></td><td style="padding-left: 2%; padding-top: 1%;"><center>{{formset}}</center></td>  
+                        </tr>
+                        {% endfor %} 
+                        <tr>
+                            <td style="padding-top: 3%; padding-left: 2%; width: 50%;">
+                                <div id="edit_button" style="float: right;  width: 70%">
+                                    <a style="color:#FFFFFF" id="button_text" href="{% url 'match' match.pk %}">Anuluj</a>
+                                </div>
+                            </td>
+                            <td style="padding-top: 3%;">
+                                <div id="edit_button" style="float: right; width: 70%; ">
+                                    <input class="btn" id="button_text" style="color:#FFFFFF" type="submit" value="Zapisz zmiany">
+                                </div>      
+                            </td>
+                            
+                        </tr>
+                        </form>
+                
+                </table>
+            </div>
+        </td>
+        <td style="height: 100%; width: 25%;" >
+        </td>     
+    </tr>
+    <tr style="border-bottom:1px solid #7D1C33; height: 50px;">
+
+    </tr>
+</table>
+{% endblock %}

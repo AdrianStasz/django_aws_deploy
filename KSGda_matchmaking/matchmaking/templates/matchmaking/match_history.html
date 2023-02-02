@@ -1,0 +1,92 @@
+{% extends 'matchmaking/main.html'%}
+
+{% block content %}
+
+<table style="height:300px; border-top:1px solid #7D1C33;">
+    <tr style="border-bottom:1px solid #7D1C33;">
+        <th style="width: 25%;"></th>
+        <th id="player_name" style="width: 50%">
+            <center>Ostatnie mecze:</center>
+        </th>
+        <th style="width: 25%">
+            <div id="organize_match_button" style="margin: 3%; float:right; text-align: bottom;width: 50%"><a style="color: #7D1C33;" href="{% url 'home' %}">Powrót</a></div>
+        </th>
+    </tr>
+    {% if match_history_exists %}
+        {% for index, match in matches_with_mvp.items %}
+
+                <tr>
+                    <td colspan="3" style="height: 100%; width: 100%;" >
+                        <div id="client_td2">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td colspan=2 style="padding: 2%; width: 20%;"> <a id="matches_text" style="color:#7D1C33;" href="{% url 'match' match.match.id%}">{{match.match.name}}</a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan=2 style="padding-left: 2%; text-align: left;"><span id="matches_text">Organizator: <a id="matches_text" href="{% url 'promoter' match.match.promoter.id %}">{{match.match.promoter}}</a></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan=5 id="matches_td"><span id="matches_text"><center><h4>Wynik: {{match.match.match_result}}</h4></center></span></td>
+                                </tr>
+                                {% if match.mvp.player_id %}
+                                <tr>
+                                    <td colspan=5 id="matches_td"><span id="matches_text"><center><h4>Gracz meczu: <a href="{% url 'player' match.mvp.player_id.id %}">{{match.mvp.player_id}}</a></h4></center></span></td>
+                                </tr>
+                                {% endif %}
+                                <tr style="vertical-align: top; ">
+                                    <td id="matches_td"><span id="matches_text">Data: {{match.match.match_date|date:'d-m-Y'}}</span></td>
+                                    <td id="matches_td"><span id="matches_text">Godzina: {{match.match.match_time|time:'H:i'}}</span></td>
+                                    <td id="matches_td"><span id="matches_text">Lokalizacja: {{match.match.localization}}</span></td>
+                                    <td id="matches_td"><span id="matches_text">Koszt: {{match.match.match_cost}} zł</span></td>
+                                    <td id="matches_td"><span id="matches_text">Poziom: {{match.match.skill_level}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="padding-top: 2%; padding-right: 3%;">
+                                        <a id="matches_button1" style="float: right; margin: 2%; width: 25%;" href="{% url 'match' match.match.id%}">Przejdź do meczu</a>        
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %} 
+        {% else %}
+        <tr>
+            <td style="height: 100%; width: 25%;" >
+            </td>
+            <td style="height: 100%; padding-top: 1%;" >
+                <div id="client_td">
+                    <table style="width: 100%;">
+                        
+                    
+                            <tr>
+                            <td colspan="2" style="padding-left:2%; padding-top: 6%;"><center>Nie ma żadnych meczy w hisori</center></td>
+                            </tr>
+                            
+                            <tr>
+                                <td style="padding-top: 3%; padding-left: 2%; width: 50%;">
+                                    <div id="edit_button" style="float: right;  width: 70%">
+                                        <a style="color:#FFFFFF" id="button_text" href="{% url 'home' %}">Powrót</a>
+                                    </div>
+                                </td>
+                                <td style="padding-top: 3%;">
+                                    <div id="edit_button" style="float: right; width: 70%; ">
+                                        <a style="color:#FFFFFF" id="button_text" href="{% url 'matches' %}">Przyszłe mecze</a>
+                                    </div>      
+                                </td>
+                                
+                            </tr>
+                        
+                    
+                    </table>
+                </div>
+            </td>
+            <td style="height: 100%; width: 25%;" >
+            </td>     
+        </tr>
+        {% endif %}  
+        <tr style="border-bottom:1px solid #7D1C33; height: 50px;">
+
+        </tr>
+</table>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'matchmaking/main.html'%}
+
+{% block content %}
+
+<table style="height:500px; border-top:1px solid #7D1C33; border-bottom:1px solid #7D1C33;">
+    <tr style="border-bottom:1px solid #7D1C33;">
+        <th style="width: 25%;"></th>
+        <th id="player_name" style="width: 50%">
+            <center>{{player.name}}</center>
+        </th>
+        <th style="width: 25%">
+            <div id="organize_match_button" style="margin: 3%; float:right; text-align: bottom;width: 50%"><a style="color: #7D1C33;" href="{% url 'home' %}">Powrót</a></div>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="3" style="height: 100%; width: 100%;" >
+            <div id="client_td2">
+                <table style="width: 100%;">
+                    
+                    <tr style="vertical-align: top; border-bottom:1px solid #E8B44C;">
+                        <td id="profile_td">
+                            <span id="matches_text">Ksywka: 
+                                {% if player.nickname is none %}
+                                    Brak
+                                {% else %}
+                                    {{player.nickname}}
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td id="profile_td">
+                            <span id="matches_text">Pozycja:
+                                {% if player.favorite_position is none %}
+                                    Brak
+                                {% else %}
+                                    {{player.favorite_position}}
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td id="profile_td">
+                            <span id="matches_text">Telefon: 
+                                {% if player.phone is none %}
+                                    Brak
+                                {% else %}
+                                    {{player.phone}}
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td id="profile_td">
+                            <span id="matches_text">Email: 
+                                {% if player.email is none %}
+                                Brak
+                                {% else %}
+                                {{player.email}}
+                                {% endif %}
+
+                            </span>
+                        </td>
+    
+                    </tr>
+                    <tr>
+                        <td id="profile_td"><span id="matches_text">Ostatnie mecze:</span></td>
+                    </tr>
+                    <tr>
+                        <td id="profile_td"><span id="matches_text">Nazwa:</span></td>
+                        <td id="profile_td"><span id="matches_text">Data:</span></td>
+                        <td id="profile_td"><span id="matches_text">Ilość zebranych głosów:</span></td>
+                    </tr>
+                    {% if matches_with_mvp is not none %}
+                        {% for index, match in matches_with_mvp.items %}
+                        <tr>
+                            <td id="profile_td"><a id="matches_text" href="{% url 'match' match.match.id %}">{{match.match.name}}</a></td>
+                            <td id="profile_td"><span id="matches_text">{{match.match.match_date|date:'d-m-Y'}}</span></td>
+                            <td id="profile_td"><span id="matches_text">{{match.rate}}</span></td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'matchmaking/main.html'%}
+
+{% block content %}
+<table style="height:500px; border-top:1px solid #7D1C33; border-bottom:1px solid #7D1C33;">
+    <tr style="border-bottom:1px solid #7D1C33;">
+        <th style="width: 25%;"></th>
+        <th id="player_name" style="width: 50%">
+            <center>{{promoter}}</center>
+        </th>
+        <th style="width: 25%">
+            <div id="organize_match_button" style="margin: 3%; float:right; text-align: bottom;width: 50%"><a style="color: #7D1C33;" href="{% url 'home' %}">Powrót</a></div>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="3" style="height: 100%; width: 100%;" >
+            <div id="client_td2">
+                <table style="width: 100%;">
+                    <tr>
+                        <td colspan=4 style="padding: 2%;"> <span id="matches_text" style="color:#7D1C33;">{{player}}</span></td>
+                    </tr>
+                    <tr style="vertical-align: top; border-bottom:1px solid #E8B44C;">
+                        <td id="profile_td">
+                            <span id="matches_text">
+                                Telefon: 
+                                    {% if promoter.phone is none %}
+                                    Brak
+                                    {% else %}
+                                    {{promoter.phone}}
+                                    {% endif %}
+                            </span>
+                        </td>
+                        <td id="profile_td">
+                            <span id="matches_text">
+                                Email: 
+                                    {% if promoter.email is none %}
+                                    Brak
+                                    {% else %}
+                                    {{promoter.email}}
+                                    {% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="profile_td">
+                            <span id="matches_text">
+                                Ostatnie zoorganizowane mecze:
+                            </span>
+                        </td>
+                    </tr>
+                    {% for match in matches %}
+                        <tr>
+                            <td id="profile_td"><a id="matches_text" href="{% url 'match' match.id%}">{{match}}</a></td>
+                        </tr>           
+                    {% endfor %}
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+                    
+{% endblock %}

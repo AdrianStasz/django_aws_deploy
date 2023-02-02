@@ -1,0 +1,37 @@
+{% extends 'matchmaking/main.html'%}
+
+{% block content %}
+
+<table style="height:200px; border-top:1px solid #7D1C33;">
+    <tr>
+        <td style="height: 100%; width: 25%;" >
+        </td>
+        <td style="height: 100%; padding-top: 1%;" >
+            <div id="client_td">
+                <table style="width: 100%;">         
+                        <tr>
+                        <td colspan="2" style="padding-left:2%; padding-top: 6%;"><center>Nie posiadasz uprawnień do zorganizowania meczu.</br>Zapytaj administratora o dostęp.</center></td>
+                        </tr>              
+                        <tr>
+                            <td style="padding-top: 3%; padding-left: 2%; width: 50%;">
+                                <div id="edit_button" style="float: right;  width: 70%">
+                                    <a style="color:#FFFFFF" id="button_text" href="{% url 'matches' %}">Anuluj</a>
+                                </div>
+                            </td>
+                            <td style="padding-top: 3%;">
+                                <div id="edit_button" style="float: right; width: 70%; ">
+                                    <a style="color:#FFFFFF" id="button_text" href="{% url 'create_ticket' user.player.id %}">Kontakt</a>
+                                </div>      
+                            </td>                         
+                        </tr>
+                </table>
+            </div>
+        </td>
+        <td style="height: 100%; width: 25%;" >
+        </td>     
+    </tr>
+    <tr style="border-bottom:1px solid #7D1C33; height: 50px;">
+
+    </tr>
+</table>
+{% endblock %}

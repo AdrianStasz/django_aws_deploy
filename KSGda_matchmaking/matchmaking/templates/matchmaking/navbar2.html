@@ -1,0 +1,57 @@
+{% load static %}
+<style>
+    #dashboard_text{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 100%;
+    
+    /* identical to box height, or 20px */
+
+    color: #000000;
+    }
+#dashboard_profile_text{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 100%;
+
+    background: linear-gradient(180deg, #7D1C33 0%, #570015 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    }
+</style>
+<table>
+    <tr>
+        <td style="border:0px; width: 15%; float: left; margin-left: 13%;">
+            <a id="dashboard_text" href="{% url 'home' %}">Strona główna</a>
+        </td>
+        <td style="border:0px; width:10%; float: left;">
+            <a id="dashboard_text" href="">O nas</a>
+        </td>
+        {% if request.user.is_authenticated %}
+        <td style="border:0px; float: left;">
+            <a id="dashboard_profile_text" href="{% url 'profile' %}">Profil</a>
+        </td>
+        {% endif %}
+        <td style="border:0px; width: 3%; float: right; margin-right: 2%;">
+            <a href="https://www.instagram.com/koloseumgdansk"> <img src="{% static 'images/instagram.png' %}"/></a>
+        </td>
+        <td style="border:0px; width: 3%; float: right; padding-bottom: 5px;">
+            <a href="https://www.facebook.com/KoloseumGdansk/?ref=page_internal"><img src="{% static 'images/fb.png' %}"/></a>
+        </td>
+        <td style="border:0px; width:15%; float: right; padding-right: 1%;">
+            <a id="dashboard_text" href="{% url 'matches' %}">Sprawdź mecze</a>
+        </td>
+        <td style="border:0px; width:10%; float: right; margin-right: 3%;">
+            {% if request.user.is_authenticated %}
+                <a id="dashboard_text" href="{% url 'my_matches' %}">Moje mecze</a>
+            {% else %}
+                <a id="dashboard_text" href="{% url 'login' %}">Moje mecze</a> 
+            {% endif %}
+        </td>
+    </tr>
+</table> 
