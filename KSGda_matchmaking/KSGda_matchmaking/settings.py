@@ -172,4 +172,4 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 
 # CSRF Settings
 
-# CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.mydomain.com','http://*.127.0.0.1', 'http://*35.159.25.239' , 'http://35.159.25.239/']
