@@ -22,7 +22,7 @@
                             <table style="width: 100%;">
                                 <tr>
                                     <td colspan=2 style="padding: 2%; width: 30%;"> <a id="matches_text" style="color:#7D1C33;" href="{% url 'match' match.id%}">{{match.name}}</a></td>
-                                    <td colspan=3 style="padding: 2%; text-align: left;"><span id="matches_text">Organizator: <a id="matches_text" href="{% url 'promoter' match.promoter.id %}">{{match.promoter}}</a></span></td>
+                                    <td colspan=3 style="padding: 2%; text-align: left;"><span id="matches_text">Organizator: <a id="matches_text" href="{% url 'promoter' match.promoter.id %}">{{match.promoter.user}}</a></span></td>
                                 </tr>
                                 <tr style="vertical-align: top; ">
                                     <td id="matches_td"><span id="matches_text">Data: {{match.match_date|date:'d-m-Y'}}</span></td>

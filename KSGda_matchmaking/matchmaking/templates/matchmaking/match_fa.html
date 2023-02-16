@@ -30,7 +30,7 @@
             <a id="matches_text" style="color:#7D1C33;" href="{% url 'match' match.id%}">{{match.name}}</a>
         </td>
         <td colspan="2" style="padding: 2%;">
-            Organizator: <a href="{% url 'promoter' match.promoter.id %}">{{match.promoter}}</a>
+            Organizator: <a href="{% url 'promoter' match.promoter.id %}">{{match.promoter.user}}</a>
         </td>
     </tr>
 
@@ -141,14 +141,14 @@
             <tr>
                 <td style="padding-top: 2%; padding-right: 3%; vertical-align: top; height: 80px;">
                     <div>
-                        {% if user in players%}
+                        
                             {% if not player_rate_result %}
                                 <a id="matches_button2" style="float: left; margin: 2%; width: 45%; font-size: 15px; margin-left: 12%;" href="{% url 'rate_players' match.id%}"><center>Wybierz zawodnika meczu</center></a>
                                 <a id="matches_button2" style="float: left; margin: 2%; width: 35%; font-size: 15px;" href="{% url 'update_match_result' match.id%}">Dodaj wynik</a>
                             {% else %}    
                                 <a id="matches_button2" style="float: left; margin: 2%; width: 35%; font-size: 15px; margin-left: 12%;" href="{% url 'update_match_result' match.id%}">Dodaj wynik</a>
                             {% endif %}
-                        {% endif %}
+                     
                     </div>
                 </td>
                 <td style="padding-top: 2%; padding-right: 3%; vertical-align: top; height: 80px;">

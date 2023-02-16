@@ -30,7 +30,7 @@
             <a id="matches_text" style="color:#7D1C33;" href="{% url 'match' match.id%}">{{match.name}}</a>
         </td>
         <td colspan="2" style="padding: 2%;">
-            Organizator: <a href="{% url 'promoter' match.promoter.id %}">{{match.promoter}}</a>
+            Organizator: <a href="{% url 'promoter' match.promoter.id %}">{{match.promoter.user}}</a>
         </td>
     </tr>
 
@@ -121,7 +121,7 @@
             <tr style="border-bottom:1px solid #7D1C33;">
                 <td style="vertical-align: top; padding-top: 2%; padding-right: 3%; padding-bottom: 2%">
                     <div>
-                        <a id="matches_button2" style="float: left; margin: 2%; width: 45%; font-size: 15px; margin-left: 12%;" href="{% url 'rate_players' match.id%}">Wybierz zawodnika meczu</a>
+                        <a id="matches_button2" style="float: left; margin: 2%; width: 45%; font-size: 15px; margin-left: 12%;" href="{% url 'rate_players' match.id%}"><center>Wybierz zawodnika meczu</center></a>
                     </div>
                 </td>
                 <td style="padding-top: 2%; padding-right: 3%; vertical-align: top; height: 80px;">
